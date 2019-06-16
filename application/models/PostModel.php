@@ -3,23 +3,14 @@
     public function __construct() {
       $this->load->database();
     }
-    // public function get_post() {
-    //   $query = $this->db->get_where('post');
-    //   return $query->row_array();
-    // }
+
     public function checkUser($accessToken) {
       $this->db->select("*");
       $this->db->from("user");
       $this->db->where("accessToken", $accessToken);
       $query = $this->db->get();
       return $query->row();
-      // if ($query->row()->id) {
-      //   return $query->row()->id;
-      // } else {
-      //   return false;
-      // }
     }
-
 
     public function write($title, $content, $time, $userId) {
       $this->db->insert("post",
@@ -29,5 +20,27 @@
         "time" => $time,
         "userId" => $userId
       ));
+      return $this->db->insert_id();
+    }
+
+    public function checkArticle($articleId, $userId) {
+      $this->db->select("*");
+      $this->db->from("post");
+      $this->db->where("userId", $userId);
+      $this->db->where("id", $articleId);
+
+      $query = $this->db->get();
+      return $query->row();
+    }
+
+    public function edit($title, $content, $time, $articleID, $userId) {
+      $data = array(
+               'title' => $title,
+               'content' => $content,
+               'time' => $time
+             );
+      $this->db->where('id', $articleID);
+      $this->db->update('post', $data);
+      return $articleID;
     }
   }

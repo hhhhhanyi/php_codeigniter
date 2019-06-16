@@ -20,7 +20,6 @@
         $this->db->from("user");
         $this->db->where("email", $email);
         $query = $this->db->get();
-
         return $query->row()->users > 0 ;
     }
 

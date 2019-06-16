@@ -17,17 +17,76 @@ class Post extends CI_Controller {
 				$content = $this->input->post("content");
 				$time = time();
 				$result = $this->PostModel->write($title, $content, $time, $userId);
+				redirect(site_url("blog/article/".$result));
 			} else {
-				$this->load->view('post', Array(
-					"errorMessage" => '您尚未登入，請先登入！'
-				));
-				return false;
+				redirect(site_url("/user"));
 			}
 		} else {
-			$_SESSION["accessToken"] = 'dewdew';
-			$this->load->view('user', Array(
-				"errorMessage" => '您尚未登入，請先登入！'
-			));
+			redirect(site_url("/user"));
 		}
 	}
+
+	public function edit($articleID = null) {
+		if ($articleID == null) {
+			show_404("Article not found !");
+			return true;
+		}
+		session_start();
+		if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
+			$this->load->model("PostModel");
+			$accessToken = $_SESSION["accessToken"];
+			if ($this->PostModel->checkUser($accessToken)) {
+				$userId = $this->PostModel->checkUser($accessToken)->id;
+				if ($this->PostModel->checkArticle($articleID, $userId)) {
+					$title = $this->input->post("title");
+					$content = $this->input->post("content");
+					$time = time();
+					$result = $this->PostModel->edit($title, $content, $time, $articleID, $userId);
+					redirect('/blog/article/'.$articleID);
+				} else {
+					show_404("Article not found !");
+					return true;
+				}
+			} else {
+				redirect(site_url("/user"));
+			}
+		} else {
+			redirect(site_url("/user"));
+		}
+	}
+
+	public function article($articleID = null) {
+		if ($articleID == null) {
+			show_404("Article not found !");
+			return true;
+		}
+		session_start();
+
+		if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
+			$accessToken = $_SESSION["accessToken"];
+			$this->load->model("PostModel");
+
+			if ($this->PostModel->checkUser($accessToken)) {
+				$userId = $this->PostModel->checkUser($accessToken)->id;
+				if ($this->PostModel->checkArticle($articleID, $userId)) {
+					$this->load->model("BlogModel");
+					$article = $this->BlogModel->getPost($articleID);
+					if($article){
+						$this->load->view('edit' , $article);
+					} else {
+						show_404("Article not found !");
+						return true;
+					}
+				} else {
+					show_404("Article not found !");
+					return true;
+				}
+			} else {
+				redirect(site_url("/user"));
+			}
+		} else {
+			redirect(site_url("/user"));
+		}
+	}
+
 }

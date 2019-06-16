@@ -29,7 +29,9 @@ class User extends CI_Controller {
 		}
 
     $this->UserModel->signin($email, $password, $name, $accessToken, $accessExpired);
-		$this->load->view('post');
+		session_start();
+		$_SESSION["accessToken"] = $accessToken;
+		redirect(site_url("/"));
   }
 
 	public function signin() {
@@ -54,7 +56,14 @@ class User extends CI_Controller {
 		} else {
 			session_start();
 			$_SESSION["accessToken"] = $accessToken;
-			$this->load->view('post');
+			redirect(site_url("/"));
 		}
 	}
+
+	public function logout() {
+		session_start();
+		session_destroy();
+		redirect(site_url("/user"));
+	}
+
 }

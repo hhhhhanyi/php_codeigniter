@@ -28,8 +28,6 @@
         </div>
         <div align="center"><button type="submit" class="btn btn-primary"> 發文 </button></div>
       </form>
-
-
       <?php  if (isset($errorMessage)){?>
         <div class="alert alert-danger">
           <?=$errorMessage?>
