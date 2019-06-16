@@ -3,13 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Blog extends CI_Controller {
 	public function index() {
-
-		// session_start();
-		// if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
-		// 	$data['token'] = $_SESSION["accessToken"];
-		// 	$this->load->view('blog', $data);
-		// }
-
 		$this->load->model("BlogModel");
 		$data = $this->BlogModel->allPosts();
 		$this->load->view('blog', $data);
@@ -29,4 +22,12 @@ class Blog extends CI_Controller {
 			return true;
 		}
 	}
+
+	public function user() {
+		session_start();
+		if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
+
+		}
+	}
+
 }

@@ -9,12 +9,18 @@ class Post extends CI_Controller {
 	public function write() {
 		session_start();
 		if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
+			$title = $this->input->post("title");
+			$content = $this->input->post("content");
+			if ($title == "" || $content == "") {
+				$this->load->view('post', Array(
+					"errorMessage" => "請確實填寫所有欄位。"
+				));
+				return false;
+			}
 			$this->load->model("PostModel");
 			$accessToken = $_SESSION["accessToken"];
 			if ($this->PostModel->checkUser($accessToken)) {
 				$userId = $this->PostModel->checkUser($accessToken)->id;
-				$title = $this->input->post("title");
-				$content = $this->input->post("content");
 				$time = time();
 				$result = $this->PostModel->write($title, $content, $time, $userId);
 				redirect(site_url("blog/article/".$result));

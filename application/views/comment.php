@@ -45,19 +45,13 @@
     <div id="main">
       <form class="form-horizontal" method="post"  action="<?=site_url("/post/edit/".$id)?>">
         <div class="row form-group">
-            <label for="title" class="col-sm-2 control-label">文章標題</label>
+            <label for="title" class="col-sm-2 control-label">評論內容</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="title" id="title" value="<? echo $title ?>">
-            </div>
-        </div>
-        <div class="row form-group">
-            <label for="title" class="col-sm-2 control-label">文章內容</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" rows="5" id="content" name="content" style="height:400px;"><? echo $content ?></textarea>
+              <textarea class="form-control" rows="5" id="content" name="content" style="height:400px;"></textarea>
             </div>
         </div>
         <div align="center" id="button">
-          <button type="submit" class="btn btn-primary">修改</button>
+          <button type="submit" class="btn btn-primary">送出</button>
           <button type="button" onclick="window.location.href='/pcone/blog/article/<?echo $id?>'" class="btn btn-primary"> 取消 </button>
         </div>
       </form>
