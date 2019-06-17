@@ -25,10 +25,10 @@
     <div id="header">
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <a class="nav-link active" href="#">全部文章</a>
+          <a class="nav-link active" href="/pcone/">全部文章</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">我的文章</a>
+          <a class="nav-link" href="/pcone/blog/author">我的文章</a>
         </li>
         <li class="nav-item">
             <?

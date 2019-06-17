@@ -28,7 +28,7 @@
           <a class="nav-link active" href="/pcone/">全部文章</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pcone/user">我的文章</a>
+          <a class="nav-link" href="/pcone/blog/author">我的文章</a>
         </li>
         <li class="nav-item">
             <?
@@ -53,7 +53,7 @@
                 </h3>
                 <p class="card-text"><?php echo $data->content; ?></p>
                 <hr>
-                <a href="<?=site_url("post/edit/".$data->id)?>" class="btn btn-primary" >編輯文章</a>
+                <a href="<?=site_url("post/article/".$data->id)?>" class="btn btn-primary" >編輯文章</a>
               </div>
             </div>
           </div>

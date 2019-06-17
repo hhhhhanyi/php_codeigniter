@@ -76,7 +76,7 @@ class Post extends CI_Controller {
 				$userId = $this->PostModel->checkUser($accessToken)->id;
 				if ($this->PostModel->checkArticle($articleID, $userId)) {
 					$this->load->model("BlogModel");
-					$article = $this->BlogModel->getPost($articleID);
+					$article = $this->BlogModel->singlePost($articleID);
 					if($article){
 						$this->load->view('edit' , $article);
 					} else {
