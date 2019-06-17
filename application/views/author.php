@@ -53,7 +53,7 @@
                 </h3>
                 <p class="card-text"><?php echo $data->content; ?></p>
                 <hr>
-                <a href="<?=site_url("blog/article/".$data->id)?>" class="btn btn-primary" >查看更多</a>
+                <a href="<?=site_url("post/edit/".$data->id)?>" class="btn btn-primary" >編輯文章</a>
               </div>
             </div>
           </div>

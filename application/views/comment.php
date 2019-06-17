@@ -43,7 +43,7 @@
       </ul>
     </div>
     <div id="main">
-      <form class="form-horizontal" method="post"  action="<?=site_url("/post/edit/".$id)?>">
+      <form class="form-horizontal" method="post"  action="<?=site_url("/comment/write/".$id)?>">
         <div class="row form-group">
             <label for="title" class="col-sm-2 control-label">評論內容</label>
             <div class="col-sm-10">

@@ -13,6 +13,7 @@
     }
 
     public function write($postId, $userId, $content, $time) {
+      $userId = checkUser($accessToken);
       $this->db->insert("comment",
         Array(
         "postId" =>  $postId,

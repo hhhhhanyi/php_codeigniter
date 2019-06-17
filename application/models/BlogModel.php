@@ -7,7 +7,9 @@
     public function allPosts() {
       $allPosts = 'SELECT * FROM post';
       $posts = $this->db->query($allPosts);
-      return $posts->row();
+      if($posts->num_rows() > 0) {
+        return $posts->result();
+      }
     }
 
     public function checkUser($accessToken) {
@@ -19,7 +21,7 @@
     }
 
     public function getPost($articleID) {
-      $getPost = 'SELECT * FROM post WHERE id = "'.$articleID.'"';
+      $getPost = 'SELECT post.*, user.name FROM post LEFT JOIN user ON post.userId = user.id WHERE post.id = "'.$articleID.'"';
       $post = $this->db->query($getPost);
       return $post->row();
     }

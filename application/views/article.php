@@ -20,6 +20,11 @@
     #button{
       margin-top: 30px;
     }
+    #sub {
+      text-align: right;
+      margin-bottom: 10px;
+      color: silver;
+    }
   </style>
   <body>
     <div id="header">
@@ -44,20 +49,19 @@
     </div>
     <div id="main">
       <div class="row">
-        <?php foreach($article as $data){?>
-          <div class="col-sm-4">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">
-                  <?php echo $data->title; ?>
-                </h3>
-                <p class="card-text"><?php echo $data->content; ?></p>
-                <hr>
-                <a href="<?=site_url("blog/article/".$data->id)?>" class="btn btn-primary" >查看更多</a>
-              </div>
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">
+                <?php echo $title; ?>
+              </h3>
+              <p class="card-text" id="sub">作者：<?php echo $name; ?> | 時間：<?php echo $time; ?></p>
+              <p class="card-text"><?php echo $content; ?></p>
+              <hr>
+              <a href="<?=site_url("comment/".$id)?>" class="btn btn-primary" >發表評論</a>
             </div>
           </div>
-        <?php } ?>
+        </div>
       <?php  if (isset($errorMessage)){?>
         <div class="alert alert-danger">
           <?=$errorMessage?>
