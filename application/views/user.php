@@ -38,6 +38,7 @@
         </li>
         <li class="nav-item">
             <?
+              session_start();
               if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
                 echo '<a class="nav-link" href="/pcone/user/logout"> 登出';
               } else {
