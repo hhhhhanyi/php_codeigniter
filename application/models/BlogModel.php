@@ -11,15 +11,7 @@
         return $posts->result();
       }
     }
-
-    public function checkUser($accessToken) {
-      $this->db->select("*");
-      $this->db->from("user");
-      $this->db->where("accessToken", $accessToken);
-      $query = $this->db->get();
-      return $query->row();
-    }
-
+    
     public function singlePost($articleID) {
       $singlePost = 'SELECT post.*, user.name FROM post LEFT JOIN user ON post.userId = user.id WHERE post.id = "'.$articleID.'"';
       $post = $this->db->query($singlePost);

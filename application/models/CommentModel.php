@@ -4,16 +4,7 @@
       $this->load->database();
     }
 
-    public function checkUser($accessToken) {
-      $this->db->select("id");
-      $this->db->from("user");
-      $this->db->where("accessToken", $accessToken);
-      $query = $this->db->get();
-      return $query->row();
-    }
-
     public function write($postId, $userId, $content, $time) {
-      $userId = checkUser($accessToken);
       $this->db->insert("comment",
         Array(
         "postId" =>  $postId,
@@ -21,6 +12,19 @@
         "content" => $content,
         "time" => $time
       ));
-      return $this->db->insert_id();
+      return $postId;
     }
+
+    public function getComment($articleId) {
+      $getComment = 'SELECT comment.*, user.name FROM comment LEFT JOIN user ON comment.userId = user.id WHERE comment.postId = "'.$articleId.'"';
+      $comment = $this->db->query($getComment);
+      return $comment->result();
+
+      // $this->db->select("*");
+      // $this->db->from("comment");
+      // $this->db->where("postId", $articleId);
+      // $comment = $this->db->get();
+      // return $comment->result();
+    }
+
   }

@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>全部文章</title>
+    <title>文章管理</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -19,6 +19,16 @@
     }
     #button{
       margin-top: 30px;
+    }
+    #write{
+      margin: 30px 0;
+    }
+    #writebutton{
+      border-color: #fea04f;
+      background-color: #fea04f;
+    }
+    .card{
+      margin-bottom: 30px;
     }
   </style>
   <body>
@@ -44,6 +54,13 @@
     </div>
     <div id="main">
       <div class="row">
+        <div class="col-sm-12">
+          <div class="card" id="write">
+            <a href="<?=site_url("post/write")?>" class="btn btn-primary" id="writebutton">發表文章</a>
+          </div>
+        </div>
+        <?php if($article){?>
+
         <?php foreach($article as $data){?>
           <div class="col-sm-4">
             <div class="card">
@@ -51,13 +68,14 @@
                 <h3 class="card-title">
                   <?php echo $data->title; ?>
                 </h3>
-                <p class="card-text"><?php echo $data->content; ?></p>
+                <p class="card-text"><?php echo substr($data->content, 0, 500);?></p>
                 <hr>
                 <a href="<?=site_url("post/article/".$data->id)?>" class="btn btn-primary" >編輯文章</a>
+                <a href="<?=site_url("post/delete/".$data->id)?>" class="btn btn-primary" >刪除文章</a>
               </div>
             </div>
           </div>
-        <?php } ?>
+        <?php }} ?>
       <?php  if (isset($errorMessage)){?>
         <div class="alert alert-danger">
           <?=$errorMessage?>

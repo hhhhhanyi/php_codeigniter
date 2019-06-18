@@ -4,6 +4,22 @@
       $this->load->database();
     }
 
+    public function checkUserExist($email) {
+        $this->db->select("COUNT(*) AS users");
+        $this->db->from("user");
+        $this->db->where("email", $email);
+        $query = $this->db->get();
+        return $query->row()->users > 0 ;
+    }
+
+    public function checkUser($accessToken) {
+      $this->db->select("id");
+      $this->db->from("user");
+      $this->db->where("accessToken", $accessToken);
+      $query = $this->db->get();
+      return $query->row();
+    }
+
     public function signin($email, $password, $name, $accessToken, $accessExpired) {
         $this->db->insert("user",
           Array(
@@ -13,14 +29,6 @@
           "accessToken" => $accessToken,
           "accessExpired" => $accessExpired
         ));
-    }
-
-    public function checkUserExist($email) {
-        $this->db->select("COUNT(*) AS users");
-        $this->db->from("user");
-        $this->db->where("email", $email);
-        $query = $this->db->get();
-        return $query->row()->users > 0 ;
     }
 
     public function signup($email, $password, $accessToken, $accessExpired) {
@@ -36,5 +44,5 @@
       }
     }
 
-    
+
   }

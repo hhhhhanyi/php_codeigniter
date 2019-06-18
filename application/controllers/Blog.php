@@ -14,9 +14,11 @@ class Blog extends CI_Controller {
 			return true;
 		}
 		$this->load->model("BlogModel");
+		$this->load->model("CommentModel");
 		$article = $this->BlogModel->singlePost($articleID);
+		$comment = $this->CommentModel->getComment($articleID);
 		if($article){
-			$this->load->view('article', $article);
+			$this->load->view('article', Array("article" => $article, "comment" => $comment));
 		} else {
 			show_404("Article not found !");
 			return true;
@@ -26,10 +28,11 @@ class Blog extends CI_Controller {
 	public function author() {
 		session_start();
 		if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
-			$this->load->model("BlogModel");
+			$this->load->model("UserModel");
 			$accessToken = $_SESSION["accessToken"];
-			if($this->BlogModel->checkUser($accessToken)){
-				$userId = $this->BlogModel->checkUser($accessToken)->id;
+			if($this->UserModel->checkUser($accessToken)){
+				$userId = $this->UserModel->checkUser($accessToken)->id;
+				$this->load->model("BlogModel");
 				$article = $this->BlogModel->userPosts($userId);
 				$this->load->view('author', Array("article" => $article));
 			} else {

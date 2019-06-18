@@ -20,6 +20,9 @@
     #button{
       margin-top: 30px;
     }
+    .card{
+      margin-bottom: 30px;
+    }
   </style>
   <body>
     <div id="header">
@@ -52,7 +55,7 @@
                 <h3 class="card-title">
                   <?php echo $data->title; ?>
                 </h3>
-                <p class="card-text"><?php echo $data->content; ?></p>
+                <p class="card-text"><?php echo substr($data->content, 0, 500); ?></p>
                 <hr>
                 <a href="<?=site_url("blog/article/".$data->id)?>" class="btn btn-primary" >查看更多</a>
               </div>

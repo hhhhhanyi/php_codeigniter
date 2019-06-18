@@ -2,26 +2,33 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Comment extends CI_Controller {
-	public function index($articleID = null) {
-		$this->load->view('comment/'.$articleID);
+	public function index() {
+		$this->load->view('comment');
+	}
+
+	public function article($articleID = null) {
+		$data['id'] = $articleID;
+		$this->load->view('comment', $data);
 	}
 
 	public function write($articleID = null) {
     session_start();
 		if (isset($_SESSION["accessToken"]) && $_SESSION["accessToken"] != null) {
 			$content = $this->input->post("content");
-			if ($title == "" || $content == "") {
+			if ($content == "") {
 				$this->load->view('comment', Array(
 					"errorMessage" => "請確實填寫所有欄位。"
 				));
 				return false;
 			}
-			$this->load->model("CommentModel");
+			$this->load->model("UserModel");
 			$accessToken = $_SESSION["accessToken"];
-			if ($this->CommentModel->checkUser($accessToken)) {
-				$userId = $this->CommentModel->checkUser($accessToken)->id;
+			if ($this->UserModel->checkUser($accessToken)) {
+				$userId = $this->UserModel->checkUser($accessToken)->id;
+				$content = $this->input->post("content");
 				$time = time();
-				$result = $this->CommentModel->write($title, $content, $time, $userId);
+				$this->load->model("CommentModel");
+				$result = $this->CommentModel->write($articleID, $userId, $content, $time);
 				redirect(site_url("blog/article/".$result));
 			} else {
 				redirect(site_url("/user"));
@@ -30,5 +37,4 @@ class Comment extends CI_Controller {
 			redirect(site_url("/user"));
 		}
 	}
-
 }
