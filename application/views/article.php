@@ -63,7 +63,7 @@
               <h3 class="card-title">
                 <?php echo $article->title; ?>
               </h3>
-              <p class="card-text" id="sub">作者：<?php echo $article->name; ?> | 時間：<?php echo $article->time; ?></p>
+              <p class="card-text" id="sub">作者：<?php echo $article->name; ?>　|　時間：<?php echo date("Y-m-d H:i:s",$article->time);?></p>
               <p class="card-text"><?php echo $article->content; ?></p>
               <hr>
               <a href="<?=site_url("comment/article/".$article->id)?>" class="btn btn-primary" >發表評論</a>
@@ -73,7 +73,7 @@
                   <div class="card comment">
                     <div class="card-body">
                       <p class="card-text"><?php echo $data->content;?></p>
-                      <p class="card-text sub">作者：<?php echo $data->name;?> | 時間：<?php echo $data->time;?></p>
+                      <p class="card-text sub">作者：<?php echo $data->name;?>　|　時間：<?php echo date("Y-m-d H:i:s",$data->time);?></p>
                     </div>
                   </div>
               <?php }} ?>

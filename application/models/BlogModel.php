@@ -5,13 +5,13 @@
     }
 
     public function allPosts() {
-      $allPosts = 'SELECT * FROM post';
+      $allPosts = 'SELECT * FROM post ORDER BY time desc';
       $posts = $this->db->query($allPosts);
       if($posts->num_rows() > 0) {
         return $posts->result();
       }
     }
-    
+
     public function singlePost($articleID) {
       $singlePost = 'SELECT post.*, user.name FROM post LEFT JOIN user ON post.userId = user.id WHERE post.id = "'.$articleID.'"';
       $post = $this->db->query($singlePost);
@@ -19,10 +19,8 @@
     }
 
     public function userPosts($userId) {
-      $this->db->select("*");
-      $this->db->from("post");
-      $this->db->where("userId", $userId);
-      $posts = $this->db->get();
+      $userPosts = 'SELECT * FROM post WHERE userId = "'.$userId.'" ORDER BY time desc';
+      $posts = $this->db->query($userPosts);
       if($posts->num_rows() > 0) {
         return $posts->result();
       }
